@@ -1,13 +1,55 @@
 require './Stack.rb'
 require './Queue.rb'
 
+class Jobs
+  def initialize
+    @waitlist = waitlist
+
+  end
+
+  def wait(*people)
+
+    @jobs = Stack.new
+    @waitlist = Queue.new
+    first_six = people.first(6)
+    remaing_people = people - first_six
 
 
-def wait(*hired_list)
-    fired = Stack.new.push(hired_list).flatten.pop(rand(1...6))
-    waiting_list = Stack.new.push(fired).flatten
-    fired.push(waiting_list).flatten
-end
+    first_six.each do |six|
+      @jobs.push(six)
+    end
+
+    remaing_people.each do |remaining|
+      @waitlist.enqueue(remaining)
+    end
+
+
+
+
+    def three_months
+      def roll
+        rand(1...6)
+      end
+
+      r = roll
+      r.times do
+        a = @jobs.pop
+        @waitlist.enqueue(a)
+      end
+      r.times do
+        @jobs.push(@waitlist.dequeue)
+      end
+
+    end
+
+
+  end
+
+
+#     fired = Stack.new.push(hired_list).flatten.pop(rand(1...6))
+#     waiting_list = Stack.new.push(fired).flatten
+#     fired.push(waiting_list).flatten
+
 
 
 
